@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Filmes</title>
+    <!-- Inclua o CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de Filmes</h1>
+
+        <!-- Tabela para listar os filmes -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Sinopse</th>
+                    <th>Duração</th>
+                    <th>Imagem</th>
+                    <th>Data de Lançamento</th>
+                </tr>
+            </thead>
+            <tbody id="movieList"></tbody>
+        </table>
+    </div>
+
+    <!-- Inclua o JavaScript do Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const movieList = document.getElementById('movieList');
+
+        // Função para listar filmes
+        function listMovies() {
+            fetch.get('/movies')
+                .then(function (response) {
+                    movieList.innerHTML = '';
+
+                    response.data.forEach(function (movie) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${movie.cod}</td>
+                            <td>${movie.titulo}</td>
+                            <td>${movie.sinopse}</td>
+                            <td>${movie.duracao}</td>
+                            <td>${movie.imagem}</td>
+                            <td>${movie.dataLancamento}</td>
+                        `;
+                        movieList.appendChild(row);
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Erro ao buscar lista de filmes:', error);
+                });
+        }
+
+        // Chama a função para listar filmes quando a página carregar
+        window.onload = listMovies;
+    </script>
+</body>
+</html>
